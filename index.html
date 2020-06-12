@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rock Paper Scissors</title>
+  <meta charset="UTF-8"/>
+</head>
+<body>
+    <button id="button1">Rock</button>
+    <button id="button2">Paper</button>
+    <button id="button3">Scissor</button> 
+
+  <script>
+    let win = 0;
+    let draw = 0;
+    let loss = 0;
+
+
+    document.addEventListener('click', function(){
+        document.getElementById("button1").onclick = ()=>{
+            playerSelection = document.getElementById("button1").innerHTML
+            playRound(playerSelection);
+        }
+
+        document.getElementById("button2").onclick = ()=>{
+            playerSelection = document.getElementById("button2").innerHTML
+            playRound(playerSelection);
+        }
+
+        document.getElementById("button3").onclick = ()=>{
+            playerSelection = document.getElementById("button3").innerHTML
+            playRound(playerSelection);
+        }
+    });
+
+    function computerSelection(){
+        computerResult = Math.floor(Math.random()*3)
+        
+        if (computerResult == 0){
+            return "Rock";
+        }else if(computerResult == 1){
+            return "Paper";
+        }else if(computerResult == 2){
+            return "Scissor";
+        }
+    }
+
+    function fiveRounds(){
+        if(win + loss + draw == 6){
+            //reset
+            win = 0;
+            loss = 0;
+            draw = 0;
+            document.getElementById("result").innerHTML = ""
+            document.getElementById("draws").innerHTML = `Draws: ${draw}`;
+            document.getElementById("losts").innerHTML = `Losts: ${loss}`;
+            document.getElementById("wins").innerHTML = `Wins: ${win}`;
+        }
+    }
+    
+    function playRound(playerPlay, computerPlay) {
+        computerPlay = computerSelection();
+        console.log(computerPlay)
+        if (computerPlay == playerPlay){
+            draw++;
+            document.getElementById("result").innerHTML = "Draw"
+            document.getElementById("draws").innerHTML = `Draws: ${draw}`;
+        }else if(computerPlay == "Rock" && playerPlay == "Scissor"|| 
+        computerPlay == "Scissor" && playerPlay == "Paper"||
+        computerPlay == "Paper" && playerPlay == "Rock"){
+            loss++;
+            document.getElementById("result").innerHTML = "You lost"
+            document.getElementById("losts").innerHTML = `Losts: ${loss}`;
+        }else{
+            win++;
+            document.getElementById("result").innerHTML = "You Won"
+            document.getElementById("wins").innerHTML = `Wins: ${win}`;
+        }
+
+        fiveRounds();
+    }
+
+  </script>
+
+</body>
+    <p id="result"> </p> 
+    <p id="draws">Draws:</p> 
+    <p id="wins">Wins:</p>
+    <p id="losts">Losts:</p>
+</html>
